@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Button } from 'react-native-ui-lib';
 import { StyleSheet, ImageBackground } from 'react-native';
 
-const defaultImg = require('./assets/icon.png')
-
 export default function HomeScreen() {
+  const [isAction, setIsAction] = useState(false)
+  const defaultImg = require('./assets/icon.png')
+  const actionImg = require('./assets/favicon.png')
+
+  const onClickStrokeBtn = () => {
+    if (isAction) return
+    setIsAction(true)
+    setTimeout(() => setIsAction(false), 3000)
+  }
+
   return (
     <View flex>
-      <ImageBackground source={defaultImg} style={style.backgroundImg}>
+      <ImageBackground source={isAction ? actionImg : defaultImg} style={style.backgroundImg}>
         <View style={style.menu}>
-          <Button style={style.btn} label="쓰다듬기" labelStyle={style.label} />
+          <Button
+            style={style.btn}
+            label="쓰다듬기"
+            labelStyle={style.label}
+            onPress={onClickStrokeBtn}
+          />
         </View>
       </ImageBackground>
     </View>
