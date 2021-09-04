@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, Button } from 'react-native-ui-lib';
-import { StyleSheet, ImageBackground } from 'react-native';
+import { View, Image, Button, Text } from 'react-native-ui-lib';
+import { StyleSheet } from 'react-native';
 
 export default function HomeScreen() {
   const [isAction, setIsAction] = useState(false)
-  const defaultImg = require('./assets/icon.png')
-  const actionImg = require('./assets/favicon.png')
+  const defaultImg = require('./assets/default.png')
+  const actionImg = require('./assets/stroke.gif')
 
   const onClickStrokeBtn = () => {
     if (isAction) return
@@ -15,28 +15,29 @@ export default function HomeScreen() {
 
   return (
     <View flex>
-      <ImageBackground source={isAction ? actionImg : defaultImg} style={style.backgroundImg}>
-        <View style={style.menu}>
+      <View style={style.backgroundImg}>
+        <Image source={isAction ? actionImg : defaultImg} />
+      </View>
+      <View style={style.menu}>
+        {!isAction &&
           <Button
             style={style.btn}
             label="쓰다듬기"
             labelStyle={style.label}
             onPress={onClickStrokeBtn}
-          />
-        </View>
-      </ImageBackground>
+          />}
+      </View>
     </View>
   );
 }
 
 const style = StyleSheet.create({
   backgroundImg: {
-    flex: 1,
-    justifyContent: 'center'
+    position: 'absolute',
   },
   menu: {
-    marginBottom: 100,
     flex: 1,
+    marginBottom: 100,
     justifyContent: 'flex-end',
     alignItems: 'center',
     opacity: 0.6,
